@@ -191,10 +191,8 @@ let TeaTime = GObject.registerClass(
 
 				let seconds = Utils.parseTime(text.get_text())
 				if (isNaN(seconds) || seconds <= 0) return;
-				if (seconds > 0) {
-					this._initCountdown(new Date(), seconds);
-					this.menu.close();
-				}
+				this._initCountdown(new Date(), seconds);
+				this.menu.close();
 				this._customEntry.set_text("");
 			}
 		}

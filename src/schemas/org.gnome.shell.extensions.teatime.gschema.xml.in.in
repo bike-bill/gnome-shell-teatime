@@ -13,7 +13,7 @@
     </key>
     <key name="alarm-sound-file" type="s">
       <default>"file:///usr/share/sounds/freedesktop/stereo/complete.oga"</default>
-      <summary>Drawing completed sound</summary>
+      <summary>Steeping completed sound</summary>
       <description>A sound file played after steeping is completed.</description>
     </key>
     <key name="use-alarm-sound" type="b">
