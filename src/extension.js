@@ -89,9 +89,9 @@ let TeaTime = GObject.registerClass(
 
 		_createMenu() {
 			this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
-			this._settings.connect("changed::" + this.config_keys.steep_times,
+			this._steepTimesSignalId = this._settings.connect("changed::" + this.config_keys.steep_times,
 				this._updateTeaList.bind(this));
-			this._settings.connect("changed::" + this.config_keys.graphical_countdown,
+			this._graphicalCountdownSignalId = this._settings.connect("changed::" + this.config_keys.graphical_countdown,
 				this._updateCountdownType.bind(this));
 
 			this.teaItemCont = new PopupMenu.PopupMenuSection();
@@ -108,7 +108,8 @@ let TeaTime = GObject.registerClass(
 			let bottom = new PopupMenu.PopupMenuSection();
 			this._customEntry = new St.Entry({
 				track_hover: true,
-				hint_text: _("min:sec")
+				hint_text: _("min:sec"),
+				style_class: 'teatime-custom-entry'
 			});
 			this._customEntry.get_clutter_text().set_max_length(10);
 			this._customEntry.get_clutter_text().connect("key-press-event", this._createCustomTimer.bind(this));
@@ -346,8 +347,14 @@ export default class TeaTimeExtension extends Extension {
 	}
 
 	disable() {
-		this._TeaTime._stopCountdown();
-		this._TeaTime.destroy();
-		delete this._TeaTime;
+		if (this._TeaTime) {
+			if (this._TeaTime._steepTimesSignalId)
+				this._TeaTime._settings.disconnect(this._TeaTime._steepTimesSignalId);
+			if (this._TeaTime._graphicalCountdownSignalId)
+				this._TeaTime._settings.disconnect(this._TeaTime._graphicalCountdownSignalId);
+			this._TeaTime._stopCountdown();
+			this._TeaTime.destroy();
+			delete this._TeaTime;
+		}
 	}
 }

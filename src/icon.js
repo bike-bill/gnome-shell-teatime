@@ -36,7 +36,7 @@ export var TwoColorIcon = GObject.registerClass(
 			// some fallback color
 			let [res, color] = Cogl.Color.from_string("rgb(150, 150, 150)");
 			this._primaryColor = color;
-			this._secundaryColor = color;
+			this._secondaryColor = color;
 			this._customStatus = null;
 		}
 
@@ -45,9 +45,9 @@ export var TwoColorIcon = GObject.registerClass(
 			this.margin_right = padding;
 		}
 
-		setColor(primary, secundary) {
+		setColor(primary, secondary) {
 			this._primaryColor = primary;
-			this._secundaryColor = secundary;
+			this._secondaryColor = secondary;
 			this.queue_repaint();
 		}
 
@@ -81,7 +81,7 @@ export var TwoColorIcon = GObject.registerClass(
 			try {
 				cr.scale(scaling, scaling);
 
-				this._drawingObject.draw(cr, this._customStatus, this._primaryColor, this._secundaryColor);
+				this._drawingObject.draw(cr, this._customStatus, this._primaryColor, this._secondaryColor);
 
 				cr.restore();
 			} catch (e) {
@@ -94,7 +94,7 @@ export var TwoColorIcon = GObject.registerClass(
 export var TeaPot = {
 	width: 484,
 	height: 295,
-	draw(cr, stat, primary, secundary) {
+	draw(cr, stat, primary, secondary) {
 		// draw TeaPot
 		// cairo commands generated from svg2cairo
 		// https://github.com/akrinke/svg2cairo
@@ -138,7 +138,7 @@ export var TeaPot = {
 export var Pie = {
 	width: 1,
 	height: 1,
-	draw(cr, stat, primary, secundary) {
+	draw(cr, stat, primary, secondary) {
 		const pi = Math.PI;
 		const r = 0.5;
 
@@ -147,7 +147,7 @@ export var Pie = {
 		cr.translate(0.5, 0.5);
 		cr.save();
 
-		Utils.setCairoColorFromClutter(cr, secundary);
+		Utils.setCairoColorFromClutter(cr, secondary);
 		cr.moveTo(0, 0);
 		cr.arc(0, 0, r, 3 / 2 * pi + 2 * pi * stat, 3 / 2 * pi + 2 *
 			pi);
