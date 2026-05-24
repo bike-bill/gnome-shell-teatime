@@ -74,6 +74,12 @@ export function playSound(uri) {
 	_player.set_state(Gst.State.PLAYING);
 }
 
+export function stopSound() {
+	if (_player) {
+		_player.set_state(Gst.State.NULL);
+	}
+}
+
 export function setCairoColorFromClutter(cr, c) {
 	let s = 1.0 / 255;
 	cr.setSourceRGBA(s * c.red, s * c.green, s * c.blue, s * c.alpha);

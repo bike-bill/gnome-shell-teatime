@@ -13,4 +13,3 @@ po/POTFILES
 po/stamp-it
 src/schemas/org.gnome.shell.extensions.teatime.gschema.xml
 src/schemas/org.gnome.shell.extensions.teatime.gschema.xml.in
-AGENTS.md

@@ -22,6 +22,8 @@ import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 import * as Utils from './utils.js';
 import * as Icon from './icon.js';
 
+const ALERT_COLOR = "#f00";
+
 let PopupTeaMenuItem = GObject.registerClass(
 	class PopupTeaMenuItem extends PopupMenu.PopupBaseMenuItem {
 		_init(sTeaname, nBrewtime, params) {
@@ -77,7 +79,7 @@ let TeaTime = GObject.registerClass(
 			this._colorChanged = false;
 			this._menu_activate_id = this.menu.connect('activate', this._resetMenuItemColor.bind(this));
 
-			let [res, color] = Cogl.Color.from_string("#f00");
+			let [res, color] = Cogl.Color.from_string(ALERT_COLOR);
 			this._colorRed = color;
 		}
 
@@ -188,10 +190,9 @@ let TeaTime = GObject.registerClass(
 				event.get_key_symbol() == Clutter.KEY_KP_Enter) {
 
 				let seconds = Utils.parseTime(text.get_text())
-				if (seconds > 0) {
-					this._initCountdown(new Date(), seconds);
-					this.menu.close();
-				}
+				if (isNaN(seconds) || seconds <= 0) return;
+				this._initCountdown(new Date(), seconds);
+				this.menu.close();
 				this._customEntry.set_text("");
 			}
 		}
@@ -341,10 +342,13 @@ let TeaTime = GObject.registerClass(
 			this._graphicalTimer.setScaling(scaling);
 		}
 		destroy() {
-			this._removeIdleTimeout(); // only for shexli
-			this._settings.disconnect(this._setting_changed_id);
-			this._settings.disconnect(this._settings_change2_id);
-			this._menu.disconnect(this._menu_activate_id);
+			this._removeIdleTimeout();
+			if (this._steepTimesSignalId)
+				this._settings.disconnect(this._steepTimesSignalId);
+			if (this._graphicalCountdownSignalId)
+				this._settings.disconnect(this._graphicalCountdownSignalId);
+			if (this._menu_activate_id)
+				this.menu.disconnect(this._menu_activate_id);
 			super.destroy();
 		}
 	});
@@ -356,6 +360,7 @@ export default class TeaTimeExtension extends Extension {
 	}
 
 	disable() {
+		Utils.stopSound();
 		if (this._TeaTime) {
 			if (this._TeaTime._steepTimesSignalId)
 				this._TeaTime._settings.disconnect(this._TeaTime._steepTimesSignalId);
