@@ -3,8 +3,8 @@
   <schema id="@GSETTINGS_SCHEMA@" path="/org/gnome/shell/extensions/teatime/" gettext-domain="@GETTEXT_DOMAIN@">
     <key name="steep-times" type="a{su}">
       <_default l10n="messages">{ "Green tea": 180, "Black tea": 210, "Fruit tea": 420, "White tea": 120 }</_default>
-      <_summary>Tea drawing times list</_summary>
-      <_description>A mapping of a teas to their corresponding drawing time in seconds.</_description>
+      <_summary>Tea steeping times list</_summary>
+      <_description>A mapping of a teas to their corresponding steeping time in seconds.</_description>
     </key>
     <key name="graphical-countdown" type="b">
       <default>true</default>
@@ -14,12 +14,12 @@
     <key name="alarm-sound-file" type="s">
       <default>"file:///usr/share/sounds/freedesktop/stereo/complete.oga"</default>
       <summary>Drawing completed sound</summary>
-      <description>A sound file played after drawing is completed.</description>
+      <description>A sound file played after steeping is completed.</description>
     </key>
     <key name="use-alarm-sound" type="b">
       <default>true</default>
-      <summary>Play sound when drawing completed</summary>
-      <description>Play a sound file after drawing is completed.</description>
+      <summary>Play sound when steeping completed</summary>
+      <description>Play a sound file after steeping is completed.</description>
     </key>
     <key name="running-timer" type="s">
       <default>"-"</default>
