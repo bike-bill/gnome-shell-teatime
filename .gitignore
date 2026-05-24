@@ -1,0 +1,15 @@
+Makefile.in
+aclocal.m4
+configure
+autom4te.cache/
+install-sh
+missing
+src/schemas/gschemas.compiled
+po/*.gmo
+Makefile
+config.log
+config.status
+po/POTFILES
+po/stamp-it
+src/schemas/org.gnome.shell.extensions.teatime.gschema.xml
+src/schemas/org.gnome.shell.extensions.teatime.gschema.xml.in
