@@ -70,6 +70,7 @@ let TeaTime = GObject.registerClass(
 			this.connect('style-changed', this._onStyleChanged.bind(this));
 
 			this._idleTimeout = null;
+			this._bGraphicalCountdown = true;
 
 			this._createMenu();
 			this._continueRunningTimer();
