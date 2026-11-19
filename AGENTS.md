@@ -27,7 +27,7 @@ Run before commits. Uses tabs, jslint-happy style.
 - **icon.js**: SVG icon rendering with Cairo
 - **schemas/**: GSettings schema (org.gnome.shell.extensions.teatime)
 
-Targets GNOME Shell 47-50. Uses ESM imports from `gi://` and `resource:///org/gnome/shell/`.
+Targets GNOME Shell 47-51. Uses ESM imports from `gi://` and `resource:///org/gnome/shell/`.
 
 ## i18n
 
