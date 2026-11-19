@@ -5,6 +5,7 @@
 
 import Clutter from 'gi://Clutter';
 import Cogl from 'gi://Cogl';
+import Gio from 'gi://Gio';
 import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import St from 'gi://St';
@@ -197,10 +198,20 @@ let TeaTime = GObject.registerClass(
 			}
 		}
 
+		_getNotificationIcon() {
+			// load the icon from the extension directory, so notifications work
+			// for zipped installs, where nothing is put into the icon theme
+			let file = this._extension.dir.get_child('utilities-teatime.svg');
+			if (file.query_exists(null))
+				return new Gio.FileIcon({ file: file });
+
+			return new Gio.ThemedIcon({ name: 'utilities-teatime' });
+		}
+
 		_showNotification(subject, text) {
 			let source = new MessageTray.Source({
 				title: _("TeaTime applet"),
-				iconName: 'utilities-teatime',
+				icon: this._getNotificationIcon(),
 			});
 
 			let notification = new MessageTray.Notification({
