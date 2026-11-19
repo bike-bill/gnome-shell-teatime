@@ -47,8 +47,9 @@ A handy zip file can be created using:
   ```
 * or via gnome-extensions tools
   ```shell
-  ./autogen.sh && ./configure --prefix=/usr && make && gnome-extensions pack --podir=../po --schema=schemas/org.gnome.shell.extensions.teatime.gschema.xml --extra-source=icon.js --extra-source=utils.js --extra-source=../utilities-teatime.svg --force src
+  ./autogen.sh && ./configure --prefix=/usr && make && gnome-extensions pack --podir=../po --schema=schemas/org.gnome.shell.extensions.teatime.gschema.xml --extra-source=icon.js --extra-source=utils.js --extra-source=utilities-teatime.svg --force src
   ```
+  `--extra-source` paths are resolved relative to `src/`, and all sources ship from inside `src/`. Do not point them outside it (`../utilities-teatime.svg`): older `gnome-extensions pack` versions then store a symlink instead of a copy, which is what produced the dangling `utilities-teatime.svg` link reported in issue #15.
 
 Thanks to  Thomas Liebetraut for the new build system.
 Get the latest version from:  https://github.com/tommie-lie/gnome-shell-extensions-template
