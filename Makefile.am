@@ -73,4 +73,4 @@ SUBDIRS = @CONFIGURE_SUBDIRS@
 endif
 
 icondir = $(extensiondir)/../../../icons/gnome/scalable/apps
-icon_DATA = utilities-teatime.svg
+icon_DATA = src/utilities-teatime.svg
